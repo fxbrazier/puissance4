@@ -363,7 +363,7 @@ static int sauvegarder_jeu(char *nom, unsigned char (*grille)[6], unsigned joueu
         return 0;
     }
 
-    printf("La partie a bien Ã©tÃ© sauvegardÃ©e dans le fichier %s\n", nom);
+    printf("La partie a bien été sauvegardée dans le fichier %s\n", nom);
     return 1;
 }
 
@@ -396,12 +396,12 @@ static int charger_jeu(char *nom, unsigned char (*grille)[6], unsigned *joueur, 
     }
     else if (fscanf(fp, "%u", joueur) != 1)
     {
-        fprintf(stderr, "Impossible de rÃ©cupÃ©rer le joueur courant\n");
+        fprintf(stderr, "Impossible de récupérer le joueur courant\n");
         return 0;
     }
     else if (fscanf(fp, "%u", njoueur) != 1)
     {
-        fprintf(stderr, "Impossible de rÃ©cupÃ©rer le nombre de joueurs\n");
+        fprintf(stderr, "Impossible de récupérer le nombre de joueurs\n");
         return 0;
     }
 
@@ -410,7 +410,7 @@ static int charger_jeu(char *nom, unsigned char (*grille)[6], unsigned *joueur, 
         {
             if (fscanf(fp, "%u", &grille[i][j]) != 1)
             {
-                fprintf(stderr, "Impossible de rÃ©cupÃ©rer la grille\n");
+                fprintf(stderr, "Impossible de récupérer la grille\n");
                 return 0;
             }
         }
@@ -449,16 +449,12 @@ int main(void)
             fprintf(stderr, "Impossible d'obtenir la date courante\n");
             return EXIT_FAILURE;
         }
-            printf("Entrez le nombre de joueurs (2 joueurs max): ");
+            printf("Entrez le nombre de joueurs : ");
 
             if (scanf("%u", &njoueur) != 1)
             {
                 fprintf(stderr, "Erreur lors de la saisie\n");
                 return EXIT_FAILURE;
-            }
-
-            else{
-                printf("Erreur nombre incorrect");
             }
 
         affiche_grille(grille);
@@ -484,12 +480,12 @@ int main(void)
 
                 if (*ptr != '\0')
                 {
-                    fprintf(stderr, "Vous devez entrer un numÃ©ro de colonne\n");
+                    fprintf(stderr, "Vous devez entrer un numéro de colonne\n");
                     continue;
                 }
                 else if (!coup_valide(col, grille))
                 {
-                    fprintf(stderr, "Vous ne pouvez pas jouer Ã  cet endroit\n");
+                    fprintf(stderr, "Vous ne pouvez pas jouer à cet endroit\n");
                     continue;
                 }
 
@@ -502,12 +498,12 @@ int main(void)
 
             if (n == 1 || n == 2)
             {
-                printf("Le joueur %u a gagnÃ©\n", joueur);
+                printf("Le joueur %u a gagné\n", joueur);
                 break;
             }
             else if (n == 3)
             {
-                printf("Ã‰galitÃ©\n");
+                printf("Égalité\n");
                 break;
             }
 
