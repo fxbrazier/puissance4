@@ -45,6 +45,36 @@ static void affiche_grille(unsigned char (*grille)[6])
     putchar('\n');
 }
 
+static void echanger_grille(unsigned char (*grille)[6])
+{
+    unsigned i;
+    unsigned j;
+
+    for (i = 0; i < 6; ++i)
+    {
+        for (j = 0; j < 7; ++j)
+        {
+            int tmp;
+
+            switch (grille[j][i])
+            {
+            case 0:
+                tmp = 0;
+                break;
+
+            case 1:
+                tmp = 2;
+                break;
+
+            case 2:
+                tmp = 1;
+                break;
+            }
+            grille[j][i] = tmp;
+        }
+    }
+}
+
 
 static int coup_valide(unsigned col, unsigned char (*grille)[6])
 {
@@ -435,6 +465,7 @@ int main(void)
     unsigned col;
     time_t t;
     int n;
+    int cpt = 0;
     printf("\t\t\t*************************PUISSANCE 4****************************** ");
     printf("\n\n\t\t\t\t\t     1 - Jouer a deux joueurs ou contre l'IA");
     printf("\n\t\t\t\t\t     2 - Quitter");
@@ -512,6 +543,14 @@ int main(void)
             }
 
             joueur = (joueur == 1) ? 2 : 1;
+            if (cpt == 3){
+                echanger_grille(grille);
+                cpt = 0;
+            }
+            else{
+                cpt++;
+            }
+
         }
 
         return 0;
