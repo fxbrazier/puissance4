@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+//Affiche la grille de jeu
 static void affiche_grille(unsigned char (*grille)[6])
 {
     unsigned i;
@@ -11,16 +12,19 @@ static void affiche_grille(unsigned char (*grille)[6])
     printf("  1   2   3   4   5   6   7  \n");
     printf("+---+---+---+---+---+---+---+\n");
 
+    // Parcours de toute la grille en colonne
     for (i = 0; i < 6; ++i)
     {
         putchar('|');
 
+        // Parcours de toute la grille en ligne
         for (j = 0; j < 7; ++j)
         {
             char c;
 
             switch (grille[j][i])
             {
+            //La case est vide
             case 0:
                 c = ' ';
                 break;
@@ -45,6 +49,7 @@ static void affiche_grille(unsigned char (*grille)[6])
     putchar('\n');
 }
 
+// option echange jetons
 static void echanger_grille(unsigned char (*grille)[6])
 {
     unsigned i;
@@ -61,11 +66,11 @@ static void echanger_grille(unsigned char (*grille)[6])
             case 0:
                 tmp = 0;
                 break;
-
+            // le jeton du joueur 1 devient celui du joueur 2
             case 1:
                 tmp = 2;
                 break;
-
+            // le jeton du joueur 2 devient celui du joueur 1
             case 2:
                 tmp = 1;
                 break;
@@ -75,7 +80,7 @@ static void echanger_grille(unsigned char (*grille)[6])
     }
 }
 
-
+// verifie si le nombre rentré est valide (entre 1 et 6 inclus)
 static int coup_valide(unsigned col, unsigned char (*grille)[6])
 {
     if (!col || col > 7 || grille[col - 1][0] != 0)
