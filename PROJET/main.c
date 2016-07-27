@@ -336,129 +336,6 @@ static int statut_du_jeu(unsigned joueur, unsigned col, unsigned char (*grille)[
     return 0;
 }
 
-
-static int sauvegarder_jeu(char *nom, unsigned char (*grille)[6], unsigned joueur, unsigned njoueur)
-{
-    FILE *fp;
-    unsigned i;
-    unsigned j;
-
-    printf("Entrez un nom de fichier : ");
-
-    if (scanf("%255s", nom) != 1)
-    {
-        fprintf(stderr, "Erreur lors de la saisie\n");
-        return EXIT_FAILURE;
-    }
-    else if (scanf("%*[^\n]") < 0 || scanf("%*c") < 0)
-    {
-        fprintf(stderr, "Erreur lors de l'utilisation de scanf\n");
-        return EXIT_FAILURE;
-    }
-
-    fp = fopen(nom, "w");
-
-    if (fp == NULL)
-    {
-        fprintf(stderr, "Impossible d'ouvrir le fichier %s\n", nom);
-        return 0;
-    }
-    else if (fprintf(fp, "%u\n", joueur) < 0)
-    {
-        fprintf(stderr, "Impossible de sauvegarder le joueur courant\n");
-        return 0;
-    }
-    else if (fprintf(fp, "%u\n", njoueur) < 0)
-    {
-        fprintf(stderr, "Impossible de sauvegarder le nombre de joueurs\n");
-        return 0;
-    }
-
-    for (i = 0; i < 7; ++i)
-    {
-        for (j = 0; j < 6; ++j)
-        {
-            if (fprintf(fp, "%u ", grille[i][j]) < 0)
-            {
-                fprintf(stderr, "Impossible de sauvegarder la grille\n");
-                return 0;
-            }
-        }
-
-        if (fputc('\n', fp) == EOF)
-        {
-            fprintf(stderr, "Impossible de sauvegarder la grille\n");
-            return 0;
-        }
-    }
-
-    if (fclose(fp) != 0)
-    {
-        fprintf(stderr, "Impossible de fermer le fichier %s\n", nom);
-        return 0;
-    }
-
-    printf("La partie a bien été sauvegardée dans le fichier %s\n", nom);
-    return 1;
-}
-
-
-static int charger_jeu(char *nom, unsigned char (*grille)[6], unsigned *joueur, unsigned *njoueur)
-{
-    FILE *fp;
-    unsigned i;
-    unsigned j;
-
-    printf("Entrez un nom de fichier : ");
-
-    if (scanf("%255s", nom) != 1)
-    {
-        fprintf(stderr, "Erreur lors de la saisie\n");
-        return EXIT_FAILURE;
-    }
-    else if (scanf("%*[^\n]") < 0 || scanf("%*c") < 0)
-    {
-        fprintf(stderr, "Erreur lors de l'utilisation de scanf\n");
-        return EXIT_FAILURE;
-    }
-
-    fp = fopen(nom, "r");
-
-    if (fp == NULL)
-    {
-        fprintf(stderr, "Impossible d'ouvrir le fichier %s\n", nom);
-        return 0;
-    }
-    else if (fscanf(fp, "%u", joueur) != 1)
-    {
-        fprintf(stderr, "Impossible de récupérer le joueur courant\n");
-        return 0;
-    }
-    else if (fscanf(fp, "%u", njoueur) != 1)
-    {
-        fprintf(stderr, "Impossible de récupérer le nombre de joueurs\n");
-        return 0;
-    }
-
-    for (i = 0; i < 7; ++i)
-        for (j = 0; j < 6; ++j)
-        {
-            if (fscanf(fp, "%u", &grille[i][j]) != 1)
-            {
-                fprintf(stderr, "Impossible de récupérer la grille\n");
-                return 0;
-            }
-        }
-
-    if (fclose(fp) != 0)
-    {
-        fprintf(stderr, "Impossible de fermer le fichier %s\n", nom);
-        return 0;
-    }
-
-    return 1;
-}
-
 int main(void)
 {
     int choice;
@@ -548,6 +425,8 @@ int main(void)
             }
 
             joueur = (joueur == 1) ? 2 : 1;
+
+            //tout les trois coups on échange les valeurs
             if (cpt == 3){
                 echanger_grille(grille);
                 cpt = 0;
