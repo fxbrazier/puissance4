@@ -422,9 +422,10 @@ int main(void)
             joueur = (joueur == 1) ? 2 : 1;
 
             //tout les trois coups on échange les valeurs
-            if (cpt == 3){
+            if (cpt == 4){
                 echanger_grille(grille);
                 cpt = 0;
+                printf("\nChangement des jetons pour les joueurs !\n");
             }
             else{
                 cpt++;
