@@ -345,23 +345,16 @@ int main(void)
     unsigned joueur = 1;
     unsigned njoueur;
     unsigned col;
-    time_t t;
     int n;
     int cpt = 0;
-    printf("\t\t\t*************************PUISSANCE 4****************************** ");
-    printf("\n\n\t\t\t\t\t     1 - Jouer a deux joueurs ou contre l'IA");
-    printf("\n\t\t\t\t\t     2 - Quitter");
-    printf("\n\t\t\t****************************************************************** ");
+    printf("\t*************************PUISSANCE 4************** ");
+    printf("\n\n\t    1 - Jouer a deux joueurs ou contre l'IA");
+    printf("\n\t    2 - Quitter");
+    printf("\n\n\t********************************************** ");
     printf("\n\nQuel est votre choix ?");
     scanf("%d",&choice);
     if (choice==1)
     {
-
-        if (time(&t) == (time_t)-1)
-        {
-            fprintf(stderr, "Impossible d'obtenir la date courante\n");
-            return EXIT_FAILURE;
-        }
             printf("Entrez le nombre de joueurs (2 joueurs max): ");
 
             if (scanf("%u", &njoueur) != 1)
@@ -371,7 +364,7 @@ int main(void)
             }
 
             else{
-                printf("Erreur nombre incorrect");
+                printf("Erreur nombre incorrect. Vous allez jouer contre l'IA");
             }
 
         affiche_grille(grille);
@@ -444,5 +437,9 @@ int main(void)
     {
         printf("\t\t\t\t\t\tA bientot");
         return 0;
+    }
+    else
+    {
+            printf("Votre choix n'existe pas. Veuillez réessayer ultérieurement");
     }
 }
